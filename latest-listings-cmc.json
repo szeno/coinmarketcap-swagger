@@ -1,0 +1,231 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : null,
+    "version" : "1.0.0",
+    "title" : null,
+    "termsOfService" : null,
+    "contact" : null,
+    "license" : null
+  },
+  "host" : "sandbox-api.coinmarketcap.com",
+  "basePath" : "/v1/cryptocurrency",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/listings/latest" : {
+      "get" : {
+        "tags" : [ "latest-listings-cmc" ],
+        "summary" : null,
+        "description" : null,
+        "operationId" : "latest-listings-cmc",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "X-CMC_PRO_API_KEY",
+          "in" : "header",
+          "description" : null,
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/latest-listings-cmc"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "latest-listings-cmc##status" : {
+      "properties" : {
+        "timestamp" : {
+          "type" : "string"
+        },
+        "error_code" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "error_message" : {
+          "type" : "string"
+        },
+        "elapsed" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "credit_count" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "notice" : {
+          "type" : "string"
+        }
+      }
+    },
+    "latest-listings-cmc##data##quote##USD" : {
+      "properties" : {
+        "price" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "volume_24h" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "volume_change_24h" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "percent_change_1h" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "percent_change_24h" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "percent_change_7d" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "market_cap" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "market_cap_dominance" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "fully_diluted_market_cap" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "last_updated" : {
+          "type" : "string"
+        }
+      }
+    },
+    "latest-listings-cmc##data##quote##BTC" : {
+      "properties" : {
+        "price" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "volume_24h" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "volume_change_24h" : {
+          "type" : "string"
+        },
+        "percent_change_1h" : {
+          "type" : "string"
+        },
+        "percent_change_24h" : {
+          "type" : "string"
+        },
+        "percent_change_7d" : {
+          "type" : "string"
+        },
+        "market_cap" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "market_cap_dominance" : {
+          "type" : "number",
+          "format" : "int32"
+        },
+        "fully_diluted_market_cap" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "last_updated" : {
+          "type" : "string"
+        }
+      }
+    },
+    "latest-listings-cmc##data##quote" : {
+      "properties" : {
+        "USD" : {
+          "$ref" : "#/definitions/latest-listings-cmc##data##quote##USD"
+        },
+        "BTC" : {
+          "$ref" : "#/definitions/latest-listings-cmc##data##quote##BTC"
+        }
+      }
+    },
+    "latest-listings-cmc##data" : {
+      "properties" : {
+        "id" : {
+          "type" : "number"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "symbol" : {
+          "type" : "string"
+        },
+        "slug" : {
+          "type" : "string"
+        },
+        "cmc_rank" : {
+          "type" : "number"
+        },
+        "num_market_pairs" : {
+          "type" : "number"
+        },
+        "circulating_supply" : {
+          "type" : "number"
+        },
+        "total_supply" : {
+          "type" : "number"
+        },
+        "max_supply" : {
+          "type" : "number"
+        },
+        "infinite_supply" : {
+          "type" : "string"
+        },
+        "last_updated" : {
+          "type" : "string"
+        },
+        "date_added" : {
+          "type" : "string"
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "platform" : {
+          "type" : "string"
+        },
+        "self_reported_circulating_supply" : {
+          "type" : "string"
+        },
+        "self_reported_market_cap" : {
+          "type" : "string"
+        },
+        "quote" : {
+          "$ref" : "#/definitions/latest-listings-cmc##data##quote"
+        }
+      }
+    },
+    "latest-listings-cmc" : {
+      "properties" : {
+        "status" : {
+          "$ref" : "#/definitions/latest-listings-cmc##status"
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/latest-listings-cmc##data"
+          }
+        }
+      }
+    }
+  }
+}
