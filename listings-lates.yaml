@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: CoinMarketCap Cryptocurrency Listings (Sandbox)
+  description: |
+    This Swagger spec describes the CoinMarketCap sandbox endpoint for getting the latest cryptocurrency listings.
+    API key authentication is required via the `X-CMC_PRO_API_KEY` header.
+  version: 1.0.0
+
+servers:
+  - url: https://sandbox-api.coinmarketcap.com/v1
+
+paths:
+  /cryptocurrency/listings/latest:
+    get:
+      summary: Get latest cryptocurrency listings
+      description: Retrieves a paginated list of all active cryptocurrencies with market data.
+      parameters:
+        - in: query
+          name: start
+          schema:
+            type: integer
+            default: 1
+          description: The rank at which to start listing (e.g., start=1 means top-ranked).
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 100
+            maximum: 5000
+          description: The number of results to return.
+        - in: query
+          name: convert
+          schema:
+            type: string
+            default: USD
+          description: The fiat or cryptocurrency to convert prices into.
+      responses:
+        '200':
+          description: A list of latest cryptocurrencies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: string
+                        format: date-time
+                      error_code:
+                        type: integer
+                      error_message:
+                        type: string
+                        nullable: true
+                      elapsed:
+                        type: integer
+                      credit_count:
+                        type: integer
+                      notice:
+                        type: string
+                        nullable: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        symbol:
+                          type: string
+                        slug:
+                          type: string
+                        cmc_rank:
+                          type: integer
+                        num_market_pairs:
+                          type: integer
+                        circulating_supply:
+                          type: number
+                        total_supply:
+                          type: number
+                        max_supply:
+                          type: number
+                        infinite_supply:
+                          type: boolean
+                          nullable: true
+                        last_updated:
+                          type: string
+                          format: date-time
+                        date_added:
+                          type: string
+                          format: date-time
+                        tags:
+                          type: array
+                          items:
+                            type: string
+                        platform:
+                          type: object
+                          nullable: true
+                        self_reported_circulating_supply:
+                          type: number
+                          nullable: true
+                        self_reported_market_cap:
+                          type: number
+                          nullable: true
+                        quote:
+                          type: object
+                          properties:
+                            USD:
+                              type: object
+                              properties:
+                                price:
+                                  type: number
+                                volume_24h:
+                                  type: number
+                                volume_change_24h:
+                                  type: number
+                                percent_change_1h:
+                                  type: number
+                                percent_change_24h:
+                                  type: number
+                                percent_change_7d:
+                                  type: number
+                                market_cap:
+                                  type: number
+                                market_cap_dominance:
+                                  type: number
+                                fully_diluted_market_cap:
+                                  type: number
+                                last_updated:
+                                  type: string
+                                  format: date-time
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-CMC_PRO_API_KEY
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            error_code:
+              type: integer
+            error_message:
+              type: string
+
+security:
+  - ApiKeyAuth: []
+
