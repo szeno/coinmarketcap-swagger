@@ -8,7 +8,7 @@
     "contact" : null,
     "license" : null
   },
-  "host" : "sandbox-api.coinmarketcap.com",
+  "host" : "pro-api.coinmarketcap.com",
   "basePath" : "/v1/cryptocurrency",
   "schemes" : [ "https" ],
   "paths" : {
